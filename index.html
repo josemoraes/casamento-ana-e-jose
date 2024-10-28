@@ -1,49 +1,99 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Casamento de Ana e José</title>
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
-</head>
-<body class="bg-slate-100">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .tangerine-bold {
+        font-family: "Tangerine", cursive;
+        font-weight: 700;
+        font-style: normal;
+      }
+    </style>
+  </head>
+  <body class="bg-slate-100 relative">
     <main class="grid grid-cols-2 md:grid-cols-4 gap-4"></main>
-</body>
-<script>
-    (function(){
-        const pipeFunctions = (...fns) => fns.reduce((inner, outer) => arg => outer(inner(arg)));
-        //const _AMOUNT_OF_IMGS = 947;
-        const _AMOUNT_OF_IMGS = 947;
-        
-        const buildGrid = (amountOfImgs)=>{
-            let grid = '';
-            let pointerPos = 1;
-            for(let i = 1; i <= amountOfImgs; i++){
-                if(pointerPos === 1){
-                    grid += '<div class="grid gap-4">';
-                }
+    <section
+      id="presentation-box"
+      class="hidden top-0 w-full h-full z-10 flex flex-row items-center justify-center"
+    >
+      <img
+        loading="lazy"
+        class="max-w-full rounded-lg h-auto md:h-5/6 fixed md:top-12 z-30"
+        src="./assets/imgs/A+J1.jpg"
+      />
+      <div class="w-full h-full fixed z-20 backdrop-blur-lg bg-white/40"></div>
+    </section>
+    <footer
+      class="fixed bottom-0 left-0 right-0 w-full bg-white shadow-md text-center tangerine-bold z-30"
+    >
+      <h1 class="text-2xl md:text-5xl py-2">Ana & José</h1>
+    </footer>
+  </body>
+  <script>
+    (function () {
+      const pipeFunctions = (...fns) =>
+        fns.reduce((inner, outer) => (arg) => outer(inner(arg)));
+      const _AMOUNT_OF_IMGS = 947;
+      
+      const buildGrid = (amountOfImgs) => {
+        let grid = "";
+        let pointerPos = 1;
+        for (let i = 1; i <= amountOfImgs; i++) {
+          if (pointerPos === 1) {
+            grid += '<div class="grid gap-4">';
+          }
 
-                grid += `<div><img loading="lazy" class="h-auto max-w-full rounded-lg" src="./assets/imgs/A+J${i}.jpg"></div>`;
+          grid += `<div><img loading="lazy" class="h-auto max-w-full rounded-lg" src="./assets/imgs/A+J${i}.jpg"></div>`;
 
-                if(pointerPos === 3){
-                    grid += '</div>'
-                    pointerPos = 0;
-                }
-                pointerPos++;
-            }
-            return grid;
+          if (pointerPos === 3) {
+            grid += "</div>";
+            pointerPos = 0;
+          }
+          pointerPos++;
         }
+        return grid;
+      };
 
-        const appendGridToPage = (grid)=>{
-            console.log(grid);
-            document.querySelector('main').innerHTML = grid;
-        }
+      const appendGridToPage = (grid) => {
+        document.querySelector("main").innerHTML = grid;
+      };
 
-        pipeFunctions(
-            buildGrid,
-            appendGridToPage
-        )(_AMOUNT_OF_IMGS)
+      const appendClickEventToPresentationBox = ()=> {
+        const presentationBox = document.getElementById("presentation-box");
+        presentationBox.addEventListener("click", ()=>{
+            presentationBox.classList.replace("fixed", "hidden");
+        });
+      };
 
-    })()
-</script>
+      const appendClickEventsToImgs = () => {
+        const presentationBox = document.getElementById("presentation-box");
+        const presentationImg = document.querySelector("#presentation-box img");
+        document
+          .querySelectorAll("img")
+          .values()
+          .forEach((img) => {
+            img.addEventListener("click", () => {
+                presentationImg.setAttribute("src", img.getAttribute("src"));
+                presentationBox.classList.replace("hidden", "fixed");
+            });
+          });
+      };
+
+      pipeFunctions(
+        buildGrid,
+        appendGridToPage,
+        appendClickEventToPresentationBox,
+        appendClickEventsToImgs
+      )(_AMOUNT_OF_IMGS);
+    })();
+  </script>
 </html>
