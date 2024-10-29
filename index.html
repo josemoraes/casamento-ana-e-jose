@@ -24,7 +24,7 @@
       <h2 class="tangerine-bold text-5xl">Filtros</h2>
       <div class="flex flex-row items-center justify-center" id="filters"></div>
     </header>
-    <main class="grid grid-cols-2 md:grid-cols-4 gap-4"></main>
+    <main class="flex flex-col"></main>
     <section
       id="presentation-box"
       class="hidden top-0 w-full h-full z-10 flex flex-row items-center justify-center"
@@ -47,21 +47,67 @@
       const pipeFunctions = (...fns) =>
         fns.reduce((inner, outer) => (arg) => outer(inner(arg)));
       const _AMOUNT_OF_IMGS = 947;
-      const _TAGS = ["cerimônia", "festa"];
+      const _AMOUNT_OF_VIDS = 2;
+      const _TAGS = ["cerimônia", "festa", "vídeo"];
 
-      const buildGrid = (amountOfImgs) => {
+      const buildGalleryContent = ({ amountOfImgs, amountOfVids }) => {
+        let imgsGallery = [];
+        let vidsGallery = [];
+        for (const imgId of Array.from({ length: amountOfImgs }, (_, value)=> value).values()) {
+          imgsGallery.push({
+            filename: `A+J${imgId + 1}`,
+            ext: "jpg",
+            tags: [imgId < 667 ? "cerimônia" : "festa"],
+          });
+        }
+
+        for (const vidId of Array.from({ length: amountOfVids }, (_, value)=> value).values()) {
+          vidsGallery.push({
+            filename: `A+J${vidId + 1}`,
+            ext: "mp4",
+            tags: [vidId < 2 ? "cerimônia" : "festa", "vídeo"],
+          });
+        }
+        
+        const sortedContents = [...imgsGallery, ...vidsGallery].sort((left, right) => {
+            const nameLeft = `${left.filename}${left.tags.join('')}`;
+            const nameRight = `${right.filename}${right.tags.join('')}`;
+            if (nameLeft < nameRight) {
+              return -1;
+            }
+            if (nameLeft > nameRight) {
+              return 1;
+            }
+            return 0;
+          });
+
+        return {
+          contents: sortedContents,
+        };
+      };
+
+      const buildGrid = ({contents}) => {
         let grid = "";
         let pointerPos = 1;
-        for (let i = 1; i <= amountOfImgs; i++) {
-          let tags = i < 668 ? "cerimônia" : "festa";
-
+        for(const content of contents){
           if (pointerPos === 1) {
-            grid += `<div class="grid gap-4 row-gallery" data-tags="${tags}">`;
+            grid += `<div class="flex flex-row items-center justify-center ">`;
           }
 
-          grid += `<div><img loading="lazy" class="h-auto max-w-full rounded-lg" src="./assets/imgs/A+J${i}.jpg""></div>`;
+          if(content.ext === 'jpg'){
+            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(',')}"><img loading="lazy" class="h-auto max-w-full rounded-xl p-2" src="./assets/imgs/${content.filename}.${content.ext}""></div>`;
+          }
 
-          if (pointerPos === 3) {
+          if(content.ext === 'mp4'){
+            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(',')}">
+              <video class="h-auto max-w-full rounded-lg" controls>
+                <source src="./assets/videos/${content.filename}.${content.ext}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+              </div>`;
+          }
+
+          if (pointerPos === 2) {
             grid += "</div>";
             pointerPos = 0;
           }
@@ -143,36 +189,44 @@
                 (tag) => !selectedOptions.includes(tag)
               );
 
+              console.log({selectedOptions, unselectedOptions})
+
               if (
                 unselectedOptions.length === 0 ||
                 unselectedOptions.length === tags.length
               ) {
                 document
-                  .querySelectorAll(".row-gallery")
+                  .querySelectorAll(".tagged-to-filter")
                   .values()
                   .forEach((row) => {
                     row.classList.remove("hidden");
                   });
-                  return;
+                return;
               }
 
-              document
-                  .querySelectorAll(`.row-gallery[data-tags="${unselectedOptions.join('')}"]`)
-                  .values()
-                  .forEach((row) => {
-                    row.classList.add("hidden");
-                  });
+              unselectedOptions.forEach(opt=>{
+                document
+                .querySelectorAll(
+                  `.tagged-to-filter[data-tags="${opt}"]`
+                )
+                .values()
+                .forEach((row) => {
+                  row.classList.add("hidden");
+                });
+              });
 
+              
             });
           });
       };
 
       pipeFunctions(
+        buildGalleryContent,
         buildGrid,
         appendGridToPage,
         addClickEventToPresentationBox,
         addClickEventsToImgs
-      )(_AMOUNT_OF_IMGS);
+      )({amountOfImgs: _AMOUNT_OF_IMGS, amountOfVids: _AMOUNT_OF_VIDS});
       pipeFunctions(
         buildFilter,
         appendFilterToPage,
