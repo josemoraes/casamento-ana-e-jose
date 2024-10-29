@@ -20,6 +20,10 @@
     </style>
   </head>
   <body class="bg-slate-100 relative">
+    <header class="w-full bg-slate-100 p-3 text-center py-5">
+      <h2 class="tangerine-bold text-5xl">Filtros</h2>
+      <div class="flex flex-row items-center justify-center" id="filters"></div>
+    </header>
     <main class="grid grid-cols-2 md:grid-cols-4 gap-4"></main>
     <section
       id="presentation-box"
@@ -43,16 +47,22 @@
       const pipeFunctions = (...fns) =>
         fns.reduce((inner, outer) => (arg) => outer(inner(arg)));
       const _AMOUNT_OF_IMGS = 947;
-      
+      const _TAGS = ["cerimônia", "festa"];
+      const optionInactiveClasslist =
+        "bg-gray-100 text-gray-800 border-gray-500";
+      const optionActiveClasslist = "bg-gray-800 text-white border-gray-900";
+
       const buildGrid = (amountOfImgs) => {
         let grid = "";
         let pointerPos = 1;
         for (let i = 1; i <= amountOfImgs; i++) {
+          let tags = i < 668 ? "cerimônia" : "festa";
+
           if (pointerPos === 1) {
-            grid += '<div class="grid gap-4">';
+            grid += `<div class="grid gap-4 row-gallery" data-tags="${tags}">`;
           }
 
-          grid += `<div><img loading="lazy" class="h-auto max-w-full rounded-lg" src="./assets/imgs/A+J${i}.jpg"></div>`;
+          grid += `<div><img loading="lazy" class="h-auto max-w-full rounded-lg" src="./assets/imgs/A+J${i}.jpg""></div>`;
 
           if (pointerPos === 3) {
             grid += "</div>";
@@ -67,14 +77,14 @@
         document.querySelector("main").innerHTML = grid;
       };
 
-      const appendClickEventToPresentationBox = ()=> {
+      const addClickEventToPresentationBox = () => {
         const presentationBox = document.getElementById("presentation-box");
-        presentationBox.addEventListener("click", ()=>{
-            presentationBox.classList.replace("fixed", "hidden");
+        presentationBox.addEventListener("click", () => {
+          presentationBox.classList.replace("fixed", "hidden");
         });
       };
 
-      const appendClickEventsToImgs = () => {
+      const addClickEventsToImgs = () => {
         const presentationBox = document.getElementById("presentation-box");
         const presentationImg = document.querySelector("#presentation-box img");
         document
@@ -82,8 +92,80 @@
           .values()
           .forEach((img) => {
             img.addEventListener("click", () => {
-                presentationImg.setAttribute("src", img.getAttribute("src"));
-                presentationBox.classList.replace("hidden", "fixed");
+              presentationImg.setAttribute("src", img.getAttribute("src"));
+              presentationBox.classList.replace("hidden", "fixed");
+            });
+          });
+      };
+
+      const buildFilter = ({ tags }) => {
+        let options = "";
+        for (tag of tags) {
+          options += `<label for="filter-by-${tag}"
+                      class="bg-gray-100 text-gray-800 text-md font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500 cursor-pointer filter">
+                      <input
+                      type="checkbox"
+                      id="filter-by-${tag}"
+                      name="filter-by-${tag}"
+                      value="${tag}"
+                      class="hidden"/>${tag}
+                    </label>`;
+        }
+        return { tags, options };
+      };
+
+      const appendFilterToPage = ({ tags, options }) => {
+        document.getElementById("filters").innerHTML = options;
+        return { tags, options };
+      };
+
+      const addOnChangeEventToFilter = ({ tags, options }) => {
+        document
+          .querySelectorAll(".filter")
+          .values()
+          .forEach((option) => {
+            option.addEventListener("change", (event) => {
+              if (option.children[0].checked) {
+                option.classList.replace("bg-gray-100", "bg-gray-800");
+                option.classList.replace("text-gray-800", "text-white");
+                option.classList.replace("border-gray-500", "border-gray-900");
+              } else {
+                option.classList.replace("bg-gray-800", "bg-gray-100");
+                option.classList.replace("text-white", "text-gray-800");
+                option.classList.replace("border-gray-900", "border-gray-500");
+              }
+
+              let selectedOptions = [];
+              document
+                .querySelectorAll('.filter input[type="checkbox"]:checked')
+                .values()
+                .forEach((opt) => {
+                  selectedOptions.push(opt.value);
+                });
+              const unselectedOptions = tags.filter(
+                (tag) => !selectedOptions.includes(tag)
+              );
+
+              if (
+                unselectedOptions.length === 0 ||
+                unselectedOptions.length === tags.length
+              ) {
+                document
+                  .querySelectorAll(".row-gallery")
+                  .values()
+                  .forEach((row) => {
+                    row.classList.remove("hidden");
+                  });
+                  return;
+              }
+
+              document
+                  .querySelectorAll(`.row-gallery[data-tags="${unselectedOptions.join('')}"]`)
+                  .values()
+                  .forEach((row) => {
+                    row.classList.add("hidden");
+                  });
+
             });
           });
       };
@@ -91,9 +173,14 @@
       pipeFunctions(
         buildGrid,
         appendGridToPage,
-        appendClickEventToPresentationBox,
-        appendClickEventsToImgs
+        addClickEventToPresentationBox,
+        addClickEventsToImgs
       )(_AMOUNT_OF_IMGS);
+      pipeFunctions(
+        buildFilter,
+        appendFilterToPage,
+        addOnChangeEventToFilter
+      )({ tags: _TAGS });
     })();
   </script>
 </html>
