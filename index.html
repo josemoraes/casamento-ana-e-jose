@@ -8,21 +8,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Petit+Formal+Script&display=swap"
       rel="stylesheet"
     />
     <style>
-      .tangerine-bold {
-        font-family: "Tangerine", cursive;
-        font-weight: 700;
+      .petit-formal-script-regular {
+        font-family: "Petit Formal Script", cursive;
+        font-weight: 400;
         font-style: normal;
       }
     </style>
   </head>
   <body class="bg-slate-100 relative">
-    <header class="w-full bg-slate-100 p-3 text-center py-5">
-      <h2 class="tangerine-bold text-5xl">Filtros</h2>
-      <div class="flex flex-row items-center justify-center" id="filters"></div>
+    <header class="w-full bg-white text-center">
+      <div class="shadow-sm py-5 flex flex-col items-center">
+        <h2 class="petit-formal-script-regular text-5xl">Responsáveis</h2>
+        <h3 class="petit-formal-script-regular text-2xl">
+          por tornarem este momento tão especial
+        </h3>
+        <nav class="my-5">
+          <ul class="flex flex-row items-center flex-wrap justify-center md:justify-between petit-formal-script-regular">
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/paroquiasantoandre.taruma?igsh=MWp4eDBzNGk4cTZxcw==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Paróquia Santo André</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/danipirescerimonialista?igsh=MTZ1NW9semd0YnZoMw==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Dani Cerimonialista</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/soulsidefotografia?igsh=MWE1c2lueTZzMTd3NA==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Soulside - fotografia</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/bellafestaassis?igsh=MXZ4MnhsMnlsZGI3OQ==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Buffet Bella Festa</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/srchopp?igsh=MXM0Y3R0M2c4N2Jldw==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Senhor Chopp</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/allandoacordeon?igsh=MWEydWU1a3Vjc2J1Zw==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Alan do Acordeon</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/bellaarts?igsh=MTg5MTdiYWs5dDZyaQ==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Bella Arts - Floricultura</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/ateliekellybaratela/" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Ateliê Kelly Baratela</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/leanpires74?igsh=MWsyY3locmNpMjNtZg==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Leandro - Comentarista</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/papelbemcasados/" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Papel Bem Casado</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/kdelicias_keilasoares?igsh=ODZkZTl4Y20xY2o3" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">K'Delícias Confeitaria</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://www.instagram.com/di_nardelli?igsh=MW5lN2g0OTl2czUzdQ==" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Di Nardelli</a></li>
+            <li class="w-full h-12 md:mt-8 md:h-auto md:w-auto"><a href="https://wa.me/5518997781739" class="bg-black text-white p-2 text-md md:mx-2 md:text-lg">Balaio - Gelo</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="py-5 bg-slate-100">
+        <h2 class="petit-formal-script-regular text-5xl">Filtros</h2>
+        <div
+          class="flex flex-row items-center justify-center petit-formal-script-regular mt-5"
+          id="filters"
+        ></div>
+      </div>
     </header>
     <main class="flex flex-col"></main>
     <section
@@ -37,9 +66,10 @@
       <div class="w-full h-full fixed z-20 backdrop-blur-lg bg-white/40"></div>
     </section>
     <footer
-      class="fixed bottom-0 left-0 right-0 w-full bg-white shadow-md text-center tangerine-bold z-30"
+      class="fixed bottom-0 left-0 right-0 w-full bg-white shadow-md text-center petit-formal-script-regular z-30 px-3"
     >
       <h1 class="text-5xl pb-5 pt-3">Ana & José</h1>
+      <h3 class="pb-5">14/09/2024, <a href="#!" class="underline underline-offset-2">Capela São Benedito – Água da Onça – Tarumã – SP</a></h3>
     </footer>
   </body>
   <script>
@@ -53,7 +83,10 @@
       const buildGalleryContent = ({ amountOfImgs, amountOfVids }) => {
         let imgsGallery = [];
         let vidsGallery = [];
-        for (const imgId of Array.from({ length: amountOfImgs }, (_, value)=> value).values()) {
+        for (const imgId of Array.from(
+          { length: amountOfImgs },
+          (_, value) => value
+        ).values()) {
           imgsGallery.push({
             filename: `A+J${imgId + 1}`,
             ext: "jpg",
@@ -61,17 +94,21 @@
           });
         }
 
-        for (const vidId of Array.from({ length: amountOfVids }, (_, value)=> value).values()) {
+        for (const vidId of Array.from(
+          { length: amountOfVids },
+          (_, value) => value
+        ).values()) {
           vidsGallery.push({
             filename: `A+J${vidId + 1}`,
             ext: "mp4",
             tags: [vidId < 2 ? "cerimônia" : "festa", "vídeo"],
           });
         }
-        
-        const sortedContents = [...imgsGallery, ...vidsGallery].sort((left, right) => {
-            const nameLeft = `${left.filename}${left.tags.join('')}`;
-            const nameRight = `${right.filename}${right.tags.join('')}`;
+
+        const sortedContents = [...imgsGallery, ...vidsGallery].sort(
+          (left, right) => {
+            const nameLeft = `${left.filename}${left.tags.join("")}`;
+            const nameRight = `${right.filename}${right.tags.join("")}`;
             if (nameLeft < nameRight) {
               return -1;
             }
@@ -79,29 +116,38 @@
               return 1;
             }
             return 0;
-          });
+          }
+        );
 
         return {
           contents: sortedContents,
         };
       };
 
-      const buildGrid = ({contents}) => {
+      const buildGrid = ({ contents }) => {
         let grid = "";
         let pointerPos = 1;
-        for(const content of contents){
+        for (const content of contents) {
           if (pointerPos === 1) {
             grid += `<div class="flex flex-row items-center justify-center ">`;
           }
 
-          if(content.ext === 'jpg'){
-            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(',')}"><img loading="lazy" class="h-auto max-w-full rounded-xl p-2" src="./assets/imgs/${content.filename}.${content.ext}""></div>`;
+          if (content.ext === "jpg") {
+            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(
+              ","
+            )}"><img loading="lazy" class="h-auto max-w-full rounded-xl p-2" src="./assets/imgs/${
+              content.filename
+            }.${content.ext}""></div>`;
           }
 
-          if(content.ext === 'mp4'){
-            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(',')}">
+          if (content.ext === "mp4") {
+            grid += `<div class="tagged-to-filter" data-tags="${content.tags.join(
+              ","
+            )}">
               <video class="h-auto max-w-full rounded-lg" controls>
-                <source src="./assets/videos/${content.filename}.${content.ext}" type="video/mp4">
+                <source src="./assets/videos/${content.filename}.${
+              content.ext
+            }" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
               </div>`;
@@ -189,7 +235,7 @@
                 (tag) => !selectedOptions.includes(tag)
               );
 
-              console.log({selectedOptions, unselectedOptions})
+              console.log({ selectedOptions, unselectedOptions });
 
               if (
                 unselectedOptions.length === 0 ||
@@ -204,18 +250,14 @@
                 return;
               }
 
-              unselectedOptions.forEach(opt=>{
+              unselectedOptions.forEach((opt) => {
                 document
-                .querySelectorAll(
-                  `.tagged-to-filter[data-tags="${opt}"]`
-                )
-                .values()
-                .forEach((row) => {
-                  row.classList.add("hidden");
-                });
+                  .querySelectorAll(`.tagged-to-filter[data-tags="${opt}"]`)
+                  .values()
+                  .forEach((row) => {
+                    row.classList.add("hidden");
+                  });
               });
-
-              
             });
           });
       };
@@ -226,7 +268,7 @@
         appendGridToPage,
         addClickEventToPresentationBox,
         addClickEventsToImgs
-      )({amountOfImgs: _AMOUNT_OF_IMGS, amountOfVids: _AMOUNT_OF_VIDS});
+      )({ amountOfImgs: _AMOUNT_OF_IMGS, amountOfVids: _AMOUNT_OF_VIDS });
       pipeFunctions(
         buildFilter,
         appendFilterToPage,
